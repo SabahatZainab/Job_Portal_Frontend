@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../shared/Navbar';
 import { Label } from '../ui/label'
 import { Input } from '../ui/input';
@@ -8,16 +8,40 @@ import { Link } from 'react-router-dom';
 
 
 function Signup() {
+  const [input, setInput] = useState({
+    fullname:"",
+    email:"",
+    phoneNumber:"",
+    password:"",
+    role:"",
+    file:""
+  });
+
+  const changeEventHandler = (e) =>{
+    setInput({...input, [e.target.name]:e.target.value});
+  }
+
+  const changeFileHandler = (e) =>{
+    setInput({...input, file:e.target.files?.[0]});
+  }
+
+  const submitHandler = (e) =>{
+    e.preventDefault();
+    console.log(input);
+  }
   return (
     <div>
       <Navbar/>
       <div className='flex items-center justify-center max-w-7xl mx-auto'>
-        <form action="" className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
+        <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
           <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
           <div className='my-2'>
             <Label>Full Name</Label>
             <Input
             type="text"
+            value={input.fullname}
+            name="fullname"
+            onChange={changeEventHandler}
             placeholder="sabahat"
             />
           </div>
@@ -25,13 +49,19 @@ function Signup() {
             <Label>Email</Label>
             <Input
             type="email"
+            value={input.email}
+            name="email"
+            onChange={changeEventHandler}
             placeholder="sabahat@gmail.com"
             />
           </div>
           <div className='my-2'>
             <Label>Phone Number</Label>
             <Input
-            type="number"
+            type="text"
+            value={input.phoneNumber}
+            name="phoneNumber"
+            onChange={changeEventHandler}
             placeholder="099999999"
             />
           </div>
@@ -39,6 +69,9 @@ function Signup() {
             <Label>Password</Label>
             <Input
             type="password"
+            value={input.password}
+            name="password"
+            onChange={changeEventHandler}
             placeholder="Saba@123"
             />
           </div>
@@ -49,6 +82,8 @@ function Signup() {
                 type="radio"
                 name="role"
                 value="student"
+                checked={input.role === 'student'}
+                onChange={changeEventHandler}
                 className="cursor-pointer"
                 />
                 <Label htmlFor="option-one">Student</Label>
@@ -58,6 +93,8 @@ function Signup() {
                 type="radio"
                 name="role"
                 value="recruiter"
+                checked={input.role === 'recruiter'}
+                onChange={changeEventHandler}
                 className="cursor-pointer"
                 />
                 <Label htmlFor="option-two">Recruiter</Label>
@@ -68,6 +105,7 @@ function Signup() {
               <Input
               accept="image/*"
               type="file"
+              onChange={changeFileHandler}
               className="cursor-pointer"
               />
             </div>
