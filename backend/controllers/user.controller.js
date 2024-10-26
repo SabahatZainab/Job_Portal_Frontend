@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 //Register User Code Started 
 export const register = async (req,res)=>{
     try{
+        console.log(["body",req.body]);
         const {fullname, email, phoneNumber, password, role} = req.body;
         if(!fullname || !email || !phoneNumber || !password || !role){
             return res.status(400).json({
