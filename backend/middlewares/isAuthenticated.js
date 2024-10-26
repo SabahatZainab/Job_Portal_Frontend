@@ -1,25 +1,30 @@
+//middleware is b/w req and res for checking req.
 import jwt from "jsonwebtoken";
 
 const isAuthenticated = async (req, res, next) => {
     try {
         const token = req.cookies.token;
-        if (!token) {
+        if(!token){
             return res.status(401).json({
                 message: "User not authenticated",
-                success: false,
-            })
+                success: false
+            });
         }
         const decode = await jwt.verify(token, process.env.SECRET_KEY);
         if(!decode){
             return res.status(401).json({
-                message:"Invalid token",
-                success:false
-            })
+                message: "Invalid token",
+                success: false
+            });
         };
-        req.id = decode.userId;
-        next();
+
+        //if token decoded we get information, which we send during login
+
+        req.id = decode.userId; // in our case which is userId
+        next(); //proceed the process towards responds.(next route)
+
     } catch (error) {
-        console.log(error);
+        
     }
 }
 export default isAuthenticated;
