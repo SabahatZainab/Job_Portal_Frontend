@@ -47,9 +47,10 @@ function Signup() {
         },
         withCredentials: true,
       });
+      console.log(["res", res])
       if(res.data.success){
         navigate("/login");
-        toast.success(res.data.success);
+        toast.success(res.data.message);
       }
     }catch(error){
       console.log(error);
