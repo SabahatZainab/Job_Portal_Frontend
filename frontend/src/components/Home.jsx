@@ -11,6 +11,8 @@ const Home = () => {
       <Navbar/>
       <HeroSection/>
       <CategoryCarousel/>
+      <LatestJobs/>
+      <Footer/>
     </div>
   )
 }
